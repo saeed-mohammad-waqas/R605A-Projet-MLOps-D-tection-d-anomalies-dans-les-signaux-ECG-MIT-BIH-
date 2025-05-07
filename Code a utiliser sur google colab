@@ -121,6 +121,23 @@ plt.ylabel("Réel")
 plt.title("Matrice de confusion")
 plt.show()
 
+import matplotlib.pyplot as plt
+
+# Portion du signal à afficher (par exemple 5 premières secondes = 5 × 360 échantillons)
+nb_samples = 5 * fs
+r_peaks_visible = [p for p in peaks if p < nb_samples]
+
+plt.figure(figsize=(15, 4))
+plt.plot(filtered[:nb_samples], label='Signal filtré')
+plt.plot(r_peaks_visible, filtered[r_peaks_visible], 'ro', label='Pics R')
+plt.title("Détection des pics R sur les 5 premières secondes")
+plt.xlabel("Échantillons")
+plt.ylabel("Amplitude (mV)")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
 
 df.to_csv("features.csv", index=False)
 clf_filename = "modele_ecg.pkl"
